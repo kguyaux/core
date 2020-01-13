@@ -52,7 +52,6 @@ def _ls():
     for identifier in (AVALON_CONTAINER_ID,
                        "pyblish.mindbender.container"):
         containers += lib.lsattr("id", identifier)
-
     return containers
 
 def containerise(name,

@@ -1,10 +1,24 @@
 """Host API required for Work Files."""
-import tvpaint_avalon as tvpav
+#import tvpaint_avalon as tvpav
+import socket
+import os
 
+
+HOST = '127.0.0.1'  # The server's hostname or IP address
+TVPLISTENERPORT = 8972        # The port used by the server
 
 def open_file(filepath):
-    """Open the scene file in tvpaint."""
-    pass
+    """To open a tvpaint-project we send a command to the TVPlistenerplugin
+    The command sets a `tv_userstring`. Which can be read by 
+    another TVPaint-function that probably is invoked by the user.
+    """
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        msg = "set openproject path \"%s\"" % filepath
+        s.connect((HOST, TVPLISTENERPORT))
+        s.sendall(bytes(msg))
+        data = s.recv(1024)
+        print('Received', str(data, encoding="utf-8"))
+    return True
 
 
 def save_file(filepath):
@@ -15,10 +29,10 @@ def save_file(filepath):
     #path = filepath.replace("\\", "/")
     #nuke.scriptSaveAs(path)
     #nuke.Root()["name"].setValue(path)
+
     #nuke.Root()["project_directory"].setValue(os.path.dirname(path))
     #nuke.Root().setModified(False)
-
-    tvpav.save_file()
+    #tvpav.save_file()
 
 
 def current_file():
@@ -43,4 +57,4 @@ def file_extensions():
 
 
 def has_unsaved_changes():
-    return True
+    return False

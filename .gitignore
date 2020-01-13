@@ -12,3 +12,6 @@ _site
 build
 *.patch
 *.diff
+*.sw[op]
+Session.vim
+Pipfile.*
