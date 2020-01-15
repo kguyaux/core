@@ -461,10 +461,13 @@ class Window(QtWidgets.QDialog):
 
 def show(root=None, debug=False, parent=None):
     """Show Work Files GUI"""
-
     if module.window:
-        module.window.close()
+        if isinstance(module.window, QtWidgets.QDialog):
+            print("sadlfasflajshdflasjdfhalsjdfh")
+            module.window.close()
+
         del(module.window)
+
 
     host = api.registered_host()
     if host is None:
@@ -504,5 +507,4 @@ def show(root=None, debug=False, parent=None):
         window = Window(root, parent=parent)
         window.show()
         window.setStyleSheet(style.load_stylesheet())
-
         module.window = window

@@ -7,15 +7,16 @@ import os
 HOST = '127.0.0.1'  # The server's hostname or IP address
 TVPLISTENERPORT = 8972        # The port used by the server
 
+
 def open_file(filepath):
     """To open a tvpaint-project we send a command to the TVPlistenerplugin
     The command sets a `tv_userstring`. Which can be read by 
     another TVPaint-function that probably is invoked by the user.
     """
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        msg = "set openproject path \"%s\"" % filepath
+        msg = "set workfiles load_path \"%s\"" % filepath
         s.connect((HOST, TVPLISTENERPORT))
-        s.sendall(bytes(msg))
+        s.sendall(bytes(msg, encoding='ascii'))
         data = s.recv(1024)
         print('Received', str(data, encoding="utf-8"))
     return True

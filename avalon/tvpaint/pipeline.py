@@ -23,16 +23,43 @@ def find_host_config(config):
 
 
 def install(config):
-    """Install Nuke-specific functionality of avalon-core.
+    """Install TVPaint-specific functionality of avalon-core.
 
-    This is where you install menus and register families, data
-    and loaders into Nuke.
-
-    It is called automatically when installing via `api.install(nuke)`.
+    It is called automatically when installing via `api.install(tvpaint)`.
 
     See the Maya equivalent for inspiration on how to implement this.
 
     """
+
+
+    _set_project()
+    pyblish.api.register_host("tvpaint")
+
+
+
+def _set_project():
+    """Sets the TVPproject project to the current Session's work directory.
+
+    Returns:
+        None
+
+    """
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    sys.stdout.flush()
+    workdir = api.Session["AVALON_WORKDIR"]
+
+    try:
+        os.makedirs(workdir)
+    except OSError as e:
+        # An already existing working directory is fine.
+        if e.errno == errno.EEXIST:
+            pass
+        else:
+            raise
+
+    #cmds.workspace(workdir, openWorkspace=True)
+
+
 
 
 def uninstall():
@@ -46,6 +73,8 @@ def uninstall():
     modifying the menu or registered families.
 
     """
+    pyblish.api.deregister_host("tvpaint")
+
 
 def _ls():
     containers = list()
@@ -53,6 +82,7 @@ def _ls():
                        "pyblish.mindbender.container"):
         containers += lib.lsattr("id", identifier)
     return containers
+
 
 def containerise(name,
                  namespace,
