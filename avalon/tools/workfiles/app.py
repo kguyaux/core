@@ -462,10 +462,7 @@ class Window(QtWidgets.QDialog):
 def show(root=None, debug=False, parent=None):
     """Show Work Files GUI"""
     if module.window:
-        if isinstance(module.window, QtWidgets.QDialog):
-            print("sadlfasflajshdflasjdfhalsjdfh")
-            module.window.close()
-
+        module.window.close()
         del(module.window)
 
 

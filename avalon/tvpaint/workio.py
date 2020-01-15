@@ -13,6 +13,7 @@ def open_file(filepath):
     The command sets a `tv_userstring`. Which can be read by 
     another TVPaint-function that probably is invoked by the user.
     """
+    print(10/0)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         msg = "set workfiles load_path \"%s\"" % filepath
         s.connect((HOST, TVPLISTENERPORT))
