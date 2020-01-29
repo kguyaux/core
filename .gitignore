@@ -1,5 +1,6 @@
 *.egg-info
 *.dist-info
+*.env
 dist
 cover
 .coverage
@@ -14,4 +15,4 @@ build
 *.diff
 *.sw[op]
 Session.vim
-Pipfile.*
+Pipfile*

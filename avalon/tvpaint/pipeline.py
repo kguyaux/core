@@ -217,25 +217,25 @@ def remove(container):
 
     """
 
-#def install(config):
-#    """Install tvpaint-specific functionality of avalon-core.
-#
-#    This function is called automatically on calling `api.install(tvpaint)`.
-#    """
-#    pass
-#
-#
-#def uninstall(config):
-#    """Uninstall tvpaint-specific functionality of avalon-core.
-#
-#    This function is called automatically on calling `api.uninstall()`.
-#
-#    Args:
-#        config: configuration module
-#    """
-#    pass
-#
-#
+def install(config):
+    """Install tvpaint-specific functionality of avalon-core.
+
+    This function is called automatically on calling `api.install(tvpaint)`.
+    """
+    pass
+
+
+def uninstall(config):
+    """Uninstall tvpaint-specific functionality of avalon-core.
+
+    This function is called automatically on calling `api.uninstall()`.
+
+    Args:
+        config: configuration module
+    """
+    pass
+
+
 #def teardown():
 #    """Remove integration"""
 #    if not self._has_been_setup:

@@ -1,11 +1,13 @@
 """Host API required for Work Files."""
 #import tvpaint_avalon as tvpav
 import socket
+from pathlib import Path
 import os
+import pytvpaint.functions as tvp
 
 
 HOST = '127.0.0.1'  # The server's hostname or IP address
-TVPLISTENERPORT = 8972        # The port used by the server
+TVPLISTENERPORT = 8906        # The port used by the server
 
 
 def open_file(filepath):
@@ -13,13 +15,7 @@ def open_file(filepath):
     The command sets a `tv_userstring`. Which can be read by 
     another TVPaint-function that probably is invoked by the user.
     """
-    print(10/0)
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        msg = "set workfiles load_path \"%s\"" % filepath
-        s.connect((HOST, TVPLISTENERPORT))
-        s.sendall(bytes(msg, encoding='ascii'))
-        data = s.recv(1024)
-        print('Received', str(data, encoding="utf-8"))
+    ret = tvp.open_tvpproject(filepath)
     return True
 
 
@@ -35,6 +31,7 @@ def save_file(filepath):
     #nuke.Root()["project_directory"].setValue(os.path.dirname(path))
     #nuke.Root().setModified(False)
     #tvpav.save_file()
+    pass
 
 
 def current_file():
@@ -42,14 +39,13 @@ def current_file():
     pass
 
 
-def work_root():
+def work_root(session):
     """Return the path of the workroot."""
-    from avalon import api
-
-    work_dir = api.Session["AVALON_WORKDIR"]
-    scene_dir = api.Session.get("AVALON_SCENEDIR")
+    work_dir = session.get("AVALON_WORKDIR")
+    scene_dir = session.get("AVALON_SCENEDIR")
     if scene_dir:
         return str(Path(work_dir, scene_dir))
+    print("Workdir:", work_dir)
     return work_dir
 
 
@@ -59,4 +55,6 @@ def file_extensions():
 
 
 def has_unsaved_changes():
+    """Always return false so that one can allways open a tvpproject
+    Doesn't matter anyway because projects can be opened multiple times"""
     return False
