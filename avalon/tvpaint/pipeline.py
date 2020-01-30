@@ -31,8 +31,16 @@ def install(config):
 
     """
 
+    """Install tvpaint-specific functionality of avalon-core.
+
+    This function is called automatically on calling `api.install(tvpaint)`.
+    """
 
     _set_project()
+
+    # reminder for future:
+    # tvpaint.register_UItools
+
     pyblish.api.register_host("tvpaint")
 
 
@@ -46,6 +54,7 @@ def _set_project():
     """
     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     sys.stdout.flush()
+
     workdir = api.Session["AVALON_WORKDIR"]
 
     try:
@@ -60,9 +69,14 @@ def _set_project():
     #cmds.workspace(workdir, openWorkspace=True)
 
 
+def uninstall(config):
+    """Uninstall tvpaint-specific functionality of avalon-core.
 
+    This function is called automatically on calling `api.uninstall()`.
 
-def uninstall():
+    Args:
+        config: configuration module
+    """
     """Uninstall all tha was installed
 
     This is where you undo everything that was done in `install()`.
@@ -73,7 +87,12 @@ def uninstall():
     modifying the menu or registered families.
 
     """
+
     pyblish.api.deregister_host("tvpaint")
+    print("Uninstalled tvpaint avalonstuff")
+
+
+
 
 
 def _ls():
@@ -216,25 +235,6 @@ def remove(container):
     loaded asset is removed here.
 
     """
-
-def install(config):
-    """Install tvpaint-specific functionality of avalon-core.
-
-    This function is called automatically on calling `api.install(tvpaint)`.
-    """
-    pass
-
-
-def uninstall(config):
-    """Uninstall tvpaint-specific functionality of avalon-core.
-
-    This function is called automatically on calling `api.uninstall()`.
-
-    Args:
-        config: configuration module
-    """
-    pass
-
 
 #def teardown():
 #    """Remove integration"""

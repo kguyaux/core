@@ -15,7 +15,7 @@ def open_file(filepath):
     The command sets a `tv_userstring`. Which can be read by 
     another TVPaint-function that probably is invoked by the user.
     """
-    ret = tvp.open_tvpproject(filepath)
+    ret = tvp.open_tvproject(filepath)
     return True
 
 
@@ -31,12 +31,12 @@ def save_file(filepath):
     #nuke.Root()["project_directory"].setValue(os.path.dirname(path))
     #nuke.Root().setModified(False)
     #tvpav.save_file()
-    pass
+    return tvp.save_tvproject(filepath)
 
 
 def current_file():
     """Return the path of the open scene file."""
-    pass
+    return tvp.get_currentfile()
 
 
 def work_root(session):

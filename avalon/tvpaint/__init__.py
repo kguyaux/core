@@ -15,24 +15,26 @@ from .workio import (
 )
 
 from .pipeline import (
-    ls
+    ls,
+    install,
+    uninstall,
+    find_host_config,
+
 
 )
 
 __all__ = [
-
-    "ls",
-
-
+    #workio
     "file_extensions",
     "has_unsaved_changes",
     "save_file",
     "open_file",
     "current_file",
+
+    #pipeline
+    "ls",
+    "install",
+    "uninstall",
+    "publish",
     "work_root"
 ]
-
-# Backwards API compatibility
-open = open_file
-save = save_file
-
