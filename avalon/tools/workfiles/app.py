@@ -75,6 +75,7 @@ class NameWindow(QtWidgets.QDialog):
             "okButton": QtWidgets.QPushButton("Ok"),
             "cancelButton": QtWidgets.QPushButton("Cancel")
         }
+        
 
         # Build version
         self.widgets["versionValue"].setMinimum(1)
@@ -197,7 +198,6 @@ class NameWindow(QtWidgets.QDialog):
 
             # Find matching files
             files = os.listdir(self.root) if os.path.exists(self.root) else []
-
             # Fast match on extension
             extensions = self.host.file_extensions()
             files = [f for f in files if os.path.splitext(f)[1] in extensions]
@@ -602,7 +602,7 @@ class FilesWidget(QtWidgets.QWidget):
         filter = "Work File (*{0})".format(filter)
         work_file = QtWidgets.QFileDialog.getOpenFileName(
             caption="Work Files",
-            dir=self.root,
+            directory=self.root,
             filter=filter
         )[0]
 
@@ -675,6 +675,9 @@ class FilesWidget(QtWidgets.QWidget):
 
     def refresh(self):
         """Refresh listed files for current selection in the interface"""
+        print("self.root:>>>>", self.root)
+        sys.stdout.flush()
+        
         self.model.refresh()
 
         if self.auto_select_latest_modified:
@@ -793,7 +796,6 @@ class Window(QtWidgets.QMainWindow):
     def set_context(self, context):
 
         if "asset" in context:
-            print(repr(context))
             asset = context["asset"]
             asset_document = io.find_one({"name": asset,
                                           "type": "asset"})

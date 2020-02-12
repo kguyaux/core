@@ -109,5 +109,6 @@ def set_context(project, asset, task, app):
 
     return SESSION
 """
+
 app = PicoApp()
 app.register_module(__name__)

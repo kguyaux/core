@@ -1,5 +1,7 @@
 """Pipeline integration functions."""
 import sys
+import os
+import errno
 
 import pyblish.api
 from avalon import api, schema
@@ -22,7 +24,7 @@ def find_host_config(config):
     return config
 
 
-def install(config):
+def install():
     """Install TVPaint-specific functionality of avalon-core.
 
     It is called automatically when installing via `api.install(tvpaint)`.
@@ -52,10 +54,11 @@ def _set_project():
         None
 
     """
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    sys.stdout.flush()
 
     workdir = api.Session["AVALON_WORKDIR"]
+
+    print("######>> workdir:", workdir) #kginfo
+    sys.stdout.flush()
 
     try:
         os.makedirs(workdir)
@@ -254,10 +257,14 @@ def remove(container):
 #
 #
 #
-#class Loader(api.Loader):
-#    hosts = ["tvpaint"]
+class Loader(api.Loader):
+    hosts = ["tvpaint"]
 #
-#    def __init__(self, context):
-#        super().__init__(context)
-#        self.fname = self.fname.replace(api.registered_root(), "$AVALON_PROJECTS")
-#
+    def __init__(self, context):
+        super().__init__(context)
+        self.fname = self.fname.replace(api.registered_root(), "$AVALON_PROJECTS")
+
+class Creator(api.Creator):
+    """Base class for Creator plug-ins."""
+    def process(self):
+        return {"Erg leuk": "nee"}

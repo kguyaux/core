@@ -40,7 +40,6 @@ def openworkfiles():
         global QT_APP
         # url: `http://localhost:4242/api/context?project=jakub_projectx&asset=shot02&task=rotopaint&app=premiere`
         workfiles.show(debug=False)
-        QT_APP.exec() # we are & should be, using the main-QT-application!
     except Exception as e:
         print("e", repr(e))
         sys.stdout.flush()
@@ -109,5 +108,6 @@ def set_context(project, asset, task, app):
 
     return SESSION
 """
+
 app = PicoApp()
 app.register_module(__name__)

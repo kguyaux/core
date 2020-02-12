@@ -51,7 +51,7 @@ def work_root(session):
 
 def file_extensions():
     """Return the supported file extensions for tvpaint scene files."""
-    return [".tvpp"]
+    return [".tvpp", ".tvp"]
 
 
 def has_unsaved_changes():
