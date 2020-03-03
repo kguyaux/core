@@ -1,6 +1,7 @@
 import datetime
-import pprint
+from pprint import pprint
 import inspect
+import sys
 
 from ...vendor.Qt import QtWidgets, QtCore, QtCompat
 from ...vendor import qtawesome

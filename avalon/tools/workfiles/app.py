@@ -11,6 +11,7 @@ from ... import style, io, api, pipeline
 
 from .. import lib as tools_lib
 from ..widgets import AssetWidget
+
 from ..models import TasksModel
 from ..delegates import PrettyTimeDelegate
 
@@ -675,8 +676,6 @@ class FilesWidget(QtWidgets.QWidget):
 
     def refresh(self):
         """Refresh listed files for current selection in the interface"""
-        print("self.root:>>>>", self.root)
-        sys.stdout.flush()
         
         self.model.refresh()
 

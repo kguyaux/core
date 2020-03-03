@@ -1,13 +1,9 @@
 """Host API required for Work Files."""
-#import tvpaint_avalon as tvpav
 import socket
 from pathlib import Path
 import os
 import pytvpaint.functions as tvp
 
-
-HOST = '127.0.0.1'  # The server's hostname or IP address
-TVPLISTENERPORT = 8906        # The port used by the server
 
 
 def open_file(filepath):
@@ -55,6 +51,5 @@ def file_extensions():
 
 
 def has_unsaved_changes():
-    """Always return false so that one can allways open a tvpproject
-    Doesn't matter anyway because projects can be opened multiple times"""
+    """Always return false so that one can allways open a tvpproject"""
     return False

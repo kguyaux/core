@@ -7,7 +7,7 @@ import pyblish.api
 from avalon import api, schema
 from ..lib import logger
 from ..pipeline import AVALON_CONTAINER_ID
-
+from pytvpaint import functions as tvp
 self = sys.modules[__name__]
 
 
@@ -40,11 +40,8 @@ def install():
 
     _set_project()
 
-    # reminder for future:
-    # tvpaint.register_UItools
-
     pyblish.api.register_host("tvpaint")
-
+                                             
 
 
 def _set_project():
@@ -56,10 +53,6 @@ def _set_project():
     """
 
     workdir = api.Session["AVALON_WORKDIR"]
-
-    print("######>> workdir:", workdir) #kginfo
-    sys.stdout.flush()
-
     try:
         os.makedirs(workdir)
     except OSError as e:
@@ -68,8 +61,6 @@ def _set_project():
             pass
         else:
             raise
-
-    #cmds.workspace(workdir, openWorkspace=True)
 
 
 def uninstall(config):
@@ -92,18 +83,10 @@ def uninstall(config):
     """
 
     pyblish.api.deregister_host("tvpaint")
-    print("Uninstalled tvpaint avalonstuff")
+    print("Uninstalled host: 'tvpaint' from pyblish")
 
 
 
-
-
-def _ls():
-    containers = list()
-    for identifier in (AVALON_CONTAINER_ID,
-                       "pyblish.mindbender.container"):
-        containers += lib.lsattr("id", identifier)
-    return containers
 
 
 def containerise(name,
@@ -146,47 +129,26 @@ def containerise(name,
 
 
 def ls():
-    """List containers from active Maya scene
+    """List containers 
+    
+    Things like comp-items 
 
     This is the host-equivalent of api.ls(), but instead of listing
-    assets on disk, it lists assets already loaded in Maya; once loaded
+    assets on disk, it lists assets already loaded in tvpaint; once loaded
     they are called 'containers'
 
     """
-
-    """
-    container_names = _ls()
-
-    has_metadata_collector = False
-    config = find_host_config(api.registered_config())
-    if hasattr(config, "collect_container_metadata"):
-        has_metadata_collector = True
-
-    for container in sorted(container_names):
-        data = parse_container(container)
-
-        # Collect custom data if attribute is present
-        if has_metadata_collector:
-            metadata = config.collect_container_metadata(container)
-            data.update(metadata)
-
+    x = {}
+    for container in sorted(x.keys()):
+        data = "Don;t have a clue yet.."
         yield data
-    """
-    yield { "id": "pyblish.avalon.container",
-            "loader": "",
-            "name": "modelDefault_01",
-            "namespace": "Bruce_",
-            "objectName": "Bruce_:rigDefault_CON",
-            "representation": "59523f355f8c1b5f6c5e8348",
-            "schema": "avalon-core:container-2.0"}
-
 
 
 def load(asset, subset, version=-1, representation=None):
-    """Load data into Maya
+    """Load data into TVPAINT
 
     This function takes an asset from the Loader GUI and
-    imports it into Nuke.
+    imports it into tvpaint
 
     The function takes `asset`, which is a dictionary following the
     `asset.json` schema, a `subset` of the `subset.json` schema and
@@ -259,12 +221,12 @@ def remove(container):
 #
 class Loader(api.Loader):
     hosts = ["tvpaint"]
-#
     def __init__(self, context):
         super().__init__(context)
         self.fname = self.fname.replace(api.registered_root(), "$AVALON_PROJECTS")
 
+
 class Creator(api.Creator):
     """Base class for Creator plug-ins."""
     def process(self):
-        return {"Erg leuk": "nee"}
+        return {"A": "B"}

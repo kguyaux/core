@@ -20,8 +20,11 @@ from .pipeline import (
     uninstall,
     find_host_config,
     Creator,
-    Loader,
+    Loader
 
+)
+from .lib import (
+    get_instances
 )
 
 __all__ = [
@@ -39,5 +42,8 @@ __all__ = [
     "Loader",
     "uninstall",
     "publish",
-    "work_root"
+    "work_root",
+
+    #lib
+    "get_instances"
 ]
