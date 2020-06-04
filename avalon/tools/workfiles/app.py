@@ -11,6 +11,7 @@ from ... import style, io, api, pipeline
 
 from .. import lib as tools_lib
 from ..widgets import AssetWidget
+
 from ..models import TasksModel
 from ..delegates import PrettyTimeDelegate
 
@@ -76,6 +77,7 @@ class NameWindow(QtWidgets.QDialog):
             "okButton": QtWidgets.QPushButton("Ok"),
             "cancelButton": QtWidgets.QPushButton("Cancel")
         }
+        
 
         # Build version
         self.widgets["versionValue"].setMinimum(1)
@@ -198,7 +200,6 @@ class NameWindow(QtWidgets.QDialog):
 
             # Find matching files
             files = os.listdir(self.root) if os.path.exists(self.root) else []
-
             # Fast match on extension
             extensions = self.host.file_extensions()
             files = [f for f in files if os.path.splitext(f)[1] in extensions]
@@ -453,7 +454,7 @@ class FilesWidget(QtWidgets.QWidget):
             session = self._get_session()
             self.root = self.host.work_root(session)
 
-            exists = os.path.exists(self.root)
+            exists = os.path.exists(self.root or "")
             self.widgets["browse"].setEnabled(exists)
             self.widgets["open"].setEnabled(exists)
             self.model.set_root(self.root)
@@ -602,7 +603,7 @@ class FilesWidget(QtWidgets.QWidget):
         filter = "Work File (*{0})".format(filter)
         work_file = QtWidgets.QFileDialog.getOpenFileName(
             caption="Work Files",
-            dir=self.root,
+            directory=self.root,
             filter=filter
         )[0]
 
@@ -675,6 +676,7 @@ class FilesWidget(QtWidgets.QWidget):
 
     def refresh(self):
         """Refresh listed files for current selection in the interface"""
+        
         self.model.refresh()
 
         if self.auto_select_latest_modified:
@@ -722,7 +724,7 @@ class FilesWidget(QtWidgets.QWidget):
             if not index.isValid():
                 continue
 
-            modified = index.data(role)
+            modified = index.data(role) or 0
             if modified > highest:
                 highest_index = index
                 highest = modified
@@ -862,6 +864,7 @@ def show(root=None, debug=False, parent=None, use_context=True):
         module.window.close()
         del(module.window)
 
+
     host = api.registered_host()
     if host is None:
         raise RuntimeError("No registered host.")
@@ -899,7 +902,6 @@ def show(root=None, debug=False, parent=None, use_context=True):
 
         window.show()
         window.setStyleSheet(style.load_stylesheet())
-
         module.window = window
 
         # Pull window to the front.
