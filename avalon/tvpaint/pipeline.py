@@ -8,7 +8,7 @@ import pyblish.api
 from avalon import api, schema
 from ..lib import logger
 from ..pipeline import AVALON_CONTAINER_ID
-from pytvpaint import functions as tvp
+from pytvpaint_avalon import functions as tvp
 self = sys.modules[__name__]
 
 
@@ -21,7 +21,6 @@ def find_host_config(config):
         if str(exc) != f"No module named '{config_name}'":
             raise
         config = None
-
     return config
 
 

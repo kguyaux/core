@@ -2,8 +2,7 @@
 import socket
 from pathlib import Path
 import os
-import pytvpaint.functions as tvp
-
+import pytvpaint_avalon.functions as tvp
 
 
 def open_file(filepath):
