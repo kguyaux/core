@@ -1,7 +1,7 @@
 """Helper functions"""
 
 import datetime
-from pytvpaint import functions as tvp
+from pytvpaint_avalon import functions as tvp
 
 
 __all__ = [
