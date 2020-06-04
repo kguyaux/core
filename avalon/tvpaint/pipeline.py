@@ -2,6 +2,7 @@
 import sys
 import os
 import errno
+import importlib
 
 import pyblish.api
 from avalon import api, schema
